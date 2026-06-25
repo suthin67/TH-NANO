@@ -41,3 +41,22 @@ The visualization above proves our core hypothesis: **Utility payment discipline
 * Applicants who paid all 6 bills on time saw their default probability collapse to just **~7.5%**.
 
 > **The Hiring Manager's Takeaway:** Even if a street vendor has zero credit cards and no formal tax records, their *discipline in keeping their stall's lights on* tells us everything we need to know about their moral character toward debt.
+
+## Part 3: The ML Furnace — Logistic Regression vs. XGBoost
+
+In consumer finance, a Data Scientist must balance two conflicting forces: **Explainability** (required by central bank regulators) and **Predictive Power** (demanded by business stakeholders to maximize profit).
+
+To demonstrate this, we trained two distinct models to predict Default Risk:
+1. **Logistic Regression:** The traditional banking standard. Highly explainable but assumes linear relationships.
+2. **XGBoost Classifier:** The modern Machine Learning standard. Captures complex, non-linear human behaviors.
+
+![Model Evaluation](ml_model_evaluation.png)
+
+### Key Analytical Takeaways:
+* **Performance Benchmark (ROC-AUC):** XGBoost significantly outperformed Logistic Regression (AUC ~0.94 vs ~0.88). The ROC curve shows that at the same False Positive Rate (rejecting good customers), XGBoost captures far more actual defaulters.
+* **The Paradigm Shift in Feature Importance:** The bar chart on the right dismantles traditional credit scoring logic. 
+  * The **#1 predictor of default is NOT debt-to-income (DTI) or age**. 
+  * The dominant feature is `dti_ratio` paired strictly with our alternative data (`ontime_utility_bills_6m`). 
+  * Meaning: *A borrower with high debt is completely acceptable to lend to, PROVIDED they have a flawless digital footprint of paying their basic survival utilities on time.*
+
+> **Business Strategy Recommendation:** > Deploy the **XGBoost** model as the primary scoring engine to maximize Non-Performing Loan (NPL) interception. However, use the weights from the **Logistic Regression** model purely to generate "Reason Codes" for the rejection letters sent to customers (e.g., "Your application was declined due to high DTI"), ensuring 100% regulatory compliance.

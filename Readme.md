@@ -60,3 +60,21 @@ To demonstrate this, we trained two distinct models to predict Default Risk:
   * Meaning: *A borrower with high debt is completely acceptable to lend to, PROVIDED they have a flawless digital footprint of paying their basic survival utilities on time.*
 
 > **Business Strategy Recommendation:** > Deploy the **XGBoost** model as the primary scoring engine to maximize Non-Performing Loan (NPL) interception. However, use the weights from the **Logistic Regression** model purely to generate "Reason Codes" for the rejection letters sent to customers (e.g., "Your application was declined due to high DTI"), ensuring 100% regulatory compliance.
+
+## Part 4: Automated Decision Matrix & Responsible Lending
+
+Machine Learning is useless if it cannot be translated into automated business actions. Using the output probabilities from our XGBoost engine, we constructed a **Business Decision Matrix** to automatically route applicants.
+
+![Decision Matrix](business_decision_donut.png)
+
+### The Decision Logic (Risk Thresholds):
+| AI Risk Score (P) | Risk Segment | Automated Action | Business Strategy |
+| :--- | :--- | :--- | :--- |
+| **P < 0.15** | Prime | **✅ Approve (100% Limit)** | Auto-approve within seconds via App. |
+| **0.15 ≤ P ≤ 0.35**| Near-Prime | **⚠️ Conditional Approve** | Approve but reduce credit limit by 30% or increase interest margin to offset risk. |
+| **P > 0.35** | Sub-Prime | **❌ Reject & Refer** | Decline loan application automatically. |
+
+### 💡 Final Thought: The Philosophy of Responsible Lending
+As Data Scientists, we must remember that a "Reject" decision is not a punishment for the grassroots borrower. By identifying high-risk individuals accurately, this model acts as a **Safety Net**, preventing vulnerable populations from falling into the devastating trap of over-indebtedness. 
+
+*We are not just optimizing for bank profitability; we are engineering sustainable financial inclusion.*
